@@ -1,0 +1,9 @@
+{
+  "name": "tailwind-vertical-rhythm",
+  "version": "1.0.0",
+  "description": "Vertical rhythm plugin for tailwind.css",
+  "main": "index.js",
+  "repository": "https://github.com/juliekoubova/tailwind-vertical-rhythm.git",
+  "author": "Julie Koubová",
+  "license": "MIT"
+}
