@@ -8,14 +8,19 @@
   "bugs": "https://github.com/juliekoubova/tailwind-vertical-rhythm/issues",
   "author": "Julie Koubová",
   "license": "MIT",
-  "engines": { "node": ">=8.0"},
+  "engines": {
+    "node": ">=8.0"
+  },
   "files": [
     "index.js"
   ],
   "keywords": [
-    "tailwind",
-    "vertical rhythm",
     "css",
+    "plugin",
+    "tailwind",
+    "tailwindcss",
+    "tailwindcss-plugin",
+    "vertical rhythm",
     "typography"
   ]
 }
