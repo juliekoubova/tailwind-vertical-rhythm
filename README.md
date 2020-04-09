@@ -40,3 +40,5 @@ font size, and possibly non-default font family at the same time.
 
 Also, there&rsquo;s a `.vr-debug` class showing the vertical rhythm to see where
 you&rsquo;re not aligned.
+
+Based on https://github.com/ceteio/styled-components-rhythm
