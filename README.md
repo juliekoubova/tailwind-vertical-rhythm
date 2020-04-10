@@ -14,8 +14,8 @@ heights of your fonts.
 
 ```js
 {
-  // disable standard font size and line height classes, you'll set these two
-  // styles together now
+  // you can disable standard font size and line height classes and use vr-*
+  // classes instead
   corePlugins: {
     fontSize: false,
     lineHeight: false
@@ -35,7 +35,7 @@ heights of your fonts.
 }
 ```
 
-And now use `.vr-{fontFamily?}-{lineHeight}-{fontSize}` classes to set line height,
+And now use `.vr{-fontFamily?}-{lineHeight}-{fontSize}` classes to set line height,
 font size, and possibly non-default font family at the same time.
 
 Also, there&rsquo;s a `.vr-debug` class showing the vertical rhythm to see where

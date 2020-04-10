@@ -2,6 +2,20 @@
 // Based on code by Jess Telford <jess@cete.io>
 // https://github.com/ceteio/styled-components-rhythm
 
+const warned = new Set()
+
+/**
+ * @param {string} message
+ */
+function warn(message) {
+  if (warned.has(message)) {
+    return
+  }
+  warned.add(message)
+  // @ts-ignore
+  console.warn(`tailwind-vertical-rhythm: ${message}`)
+}
+
 /**
  * @param {number} value
  * @param {number} multiple
@@ -64,7 +78,8 @@ function rhythmLineHeight(rhythmHeight, capHeightFraction, fontSizeRem, desiredL
 function validateIsUnitless(value, path) {
   const match = /^\s*((?:\d*\.)?\d+)\s*$/.exec(value)
   if (!match) {
-    throw new Error(`${path} must be unitless. Specified value was '${value}'`)
+    warn(`Ignoring ${path}, value '${value}' specifies an unit.`)
+    return
   }
 
   return parseFloat(match[1])
@@ -77,14 +92,29 @@ function validateIsUnitless(value, path) {
 function validateIsRem(value, path) {
   const match = /^\s*((?:\d*\.)?\d+)\s*rem$/.exec(value)
   if (!match) {
-    throw new Error(`${path} must be in rem. Specified value was '${value}'`)
+    warn(`Ignoring ${path}, value '${value}' is not in rem.`)
+    return
   }
 
   return parseFloat(match[1])
 }
 
+/**
+ * @param {(key: string) => { [s: string]: string; }} theme
+ * @param {string} key
+ * @param {(value: string, path: string) => number | undefined} validator
+ */
+function filterValidValues(theme, key, validator) {
+  const entries = Object.entries(theme(key))
+  /** @type {[string, number][]} */
+  const mapped = entries.map(
+    ([k, v]) => [k, validator(v, `theme.${key}.${k}`)]
+  )
+  return mapped.filter(([_, v]) => typeof v !== 'undefined')
+}
+
 // @ts-ignore
-module.exports = function({ addUtilities, config, e, theme, variants }) {
+module.exports = function ({ addUtilities, config, e, theme, variants }) {
   const rhythmHeight = config('verticalRhythm.height')
 
   /**
@@ -112,14 +142,8 @@ module.exports = function({ addUtilities, config, e, theme, variants }) {
   const fontCapHeights = Object.entries(config('verticalRhythm.fontCapHeight'))
   const defaultLineHeight = config('verticalRhythm.defaultLineHeight')
 
-  /** @type {[string, number][]} */
-  const fontSizes = Object.entries(theme('fontSize')).map(
-    ([k, v]) => [k, validateIsRem(v, `theme.fontSize.${k}`)]
-  )
-  /** @type {[string, number][]} */
-  const lineHeights = Object.entries(theme('lineHeight')).map(
-    ([k, v]) => [k, validateIsUnitless(v, `theme.lineHeight.${k}`)]
-  )
+  const fontSizes = filterValidValues(theme, 'fontSize', validateIsRem)
+  const lineHeights  = filterValidValues(theme, 'lineHeight', validateIsUnitless)
 
   if (defaultLineHeight) {
     /** @type {[string, number]|undefined} */
