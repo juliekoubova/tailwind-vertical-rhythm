@@ -2,7 +2,7 @@
 ```
 npm install --save-dev tailwind-vertical-rhythm
 ```
---or--
+&mdash;or&mdash;
 ```
 yarn add -D tailwind-vertical-rhythm
 ```
