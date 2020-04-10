@@ -3,6 +3,12 @@
     "Koubová",
     "Telford",
     "Unitless",
-    "juliekoubova"
-  ]
+    "juliekoubova",
+    "tailwindcss"
+  ],
+  "files.exclude": {
+    "**/.cache": true,
+    ".git": true,
+    "**/.DS_Store": true
+  }
 }
