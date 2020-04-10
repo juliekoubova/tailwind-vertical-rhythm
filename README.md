@@ -1,3 +1,8 @@
+![](example/example.png)
+
+# Tailwind.css Vertical Rhythm
+Beautifully aligned type with Tailwind.css.
+
 ### Install
 ```
 npm install --save-dev tailwind-vertical-rhythm
