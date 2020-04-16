@@ -131,11 +131,19 @@ module.exports = function ({ addUtilities, config, e, theme, variants }) {
     )
     const shiftRem = rhythmShift(capHeightFraction, lineHeightRem, fontSizeRem)
 
+    function formatRem(x) {
+      const rounded = Math.round(x * 1000) / 1000
+      const multiplier = rounded < 0 ? -1 : 1
+      const str = (multiplier * rounded).toString() + 'rem'
+      const trimmed  = /^0\./.test(str) ? str.substring(1) : str
+      return multiplier === -1 ? '-' + trimmed : trimmed
+    }
+
     return {
-      fontSize: `${fontSizeRem}rem`,
-      paddingTop: `${shiftRem}rem`,
-      marginBottom: `-${shiftRem}rem`,
-      lineHeight: `${lineHeightRem}rem`
+      fontSize: formatRem(fontSizeRem),
+      paddingTop: formatRem(shiftRem),
+      marginBottom: formatRem(-shiftRem),
+      lineHeight: formatRem(lineHeightRem),
     }
   }
 
@@ -143,7 +151,7 @@ module.exports = function ({ addUtilities, config, e, theme, variants }) {
   const defaultLineHeight = config('verticalRhythm.defaultLineHeight')
 
   const fontSizes = filterValidValues(theme, 'fontSize', validateIsRem)
-  const lineHeights  = filterValidValues(theme, 'lineHeight', validateIsUnitless)
+  const lineHeights = filterValidValues(theme, 'lineHeight', validateIsUnitless)
 
   if (defaultLineHeight) {
     /** @type {[string, number]|undefined} */
