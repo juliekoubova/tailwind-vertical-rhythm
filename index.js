@@ -90,9 +90,12 @@ function validateIsUnitless(value, path) {
  * @param {string} path
  */
 function validateIsRem(value, path) {
+  if (Array.isArray(value)) {
+    value = value[0]
+  }
   const match = /^\s*((?:\d*\.)?\d+)\s*rem$/.exec(value)
   if (!match) {
-    warn(`Ignoring ${path}, value '${value}' is not in rem.`)
+    warn(`Ignoring ${path}, value ${JSON.stringify(value)} is not in rem.`)
     return
   }
 
@@ -115,6 +118,7 @@ function filterValidValues(theme, key, validator) {
 
 // @ts-ignore
 module.exports = function ({ addUtilities, config, e, theme, variants }) {
+
   const rhythmHeight = config('verticalRhythm.height')
 
   /**
@@ -131,11 +135,14 @@ module.exports = function ({ addUtilities, config, e, theme, variants }) {
     )
     const shiftRem = rhythmShift(capHeightFraction, lineHeightRem, fontSizeRem)
 
+    /**
+     * @param {number} x
+     */
     function formatRem(x) {
       const rounded = Math.round(x * 1000) / 1000
       const multiplier = rounded < 0 ? -1 : 1
       const str = (multiplier * rounded).toString() + 'rem'
-      const trimmed  = /^0\./.test(str) ? str.substring(1) : str
+      const trimmed = /^0\./.test(str) ? str.substring(1) : str
       return multiplier === -1 ? '-' + trimmed : trimmed
     }
 

@@ -3,12 +3,15 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "clean": "shx rm -rf .cache .parcel-cache dist",
     "dev": "parcel src/index.html"
   },
   "version": "1.0.0",
-  "devDependencies": {
-    "parcel-bundler": "^1.12.4",
-    "tailwindcss": "^1.2.0"
+  "dependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "autoprefixer": "^9.8.6",
+    "parcel": "^2.0.0-beta.1",
+    "shx": "^0.3.3",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
-
