@@ -7,8 +7,9 @@
     "tailwindcss"
   ],
   "files.exclude": {
-    "**/.cache": true,
     ".git": true,
-    "**/.DS_Store": true
+    "**/.cache": true,
+    "**/.DS_Store": true,
+    "**/.parcel-cache": true,
   }
 }
