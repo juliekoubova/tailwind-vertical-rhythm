@@ -174,7 +174,7 @@ module.exports = function ({ addUtilities, config, e, theme, variants }) {
   const utilities = {}
 
   for (const [fontFamily, capHeightFraction] of fontCapHeights) {
-    const fontFamilySelector = fontFamily === 'default'
+    const fontFamilySelector = fontFamily.toLowerCase() === 'default'
       ? ''
       : e(fontFamily.replace(/\s+/, '-').toLowerCase())
 
